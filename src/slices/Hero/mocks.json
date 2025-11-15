@@ -1,0 +1,36 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Recall"
+						}
+					}
+				]
+			},
+			"body": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Excepteur elit deserunt pariatur. Laboris enim nisi aliquip dolor consectetur eu excepteur nostrud enim ut sit eu excepteur veniam. Ut nostrud occaecat elit consectetur labore cillum et excepteur velit eu ex sit amet voluptate."
+						}
+					}
+				]
+			},
+			"buy_button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "until",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]
