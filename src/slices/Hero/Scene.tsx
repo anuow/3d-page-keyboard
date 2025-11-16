@@ -26,16 +26,16 @@ export function Scene() {
       />
 
       <group>
-        <Keycap position={[0, -0.4, 2.6]} />
-        <Keycap position={[-1.4, 0, 2.3]} />
-        <Keycap position={[-1.8, 1, 1.5]} />
-        <Keycap position={[0, 1, 1]} />
-        <Keycap position={[0.7, 0.9, 1.4]} />
-        <Keycap position={[1.3, -0.3, 2.3]} />
-        <Keycap position={[0, 1, 2]} />
-        <Keycap position={[-0.7, 0.6, 2]} />
-        <Keycap position={[-0.77, 0.1, 2.8]} />
-        <Keycap position={[2, 0, 1]} />
+        <Keycap position={[0, -0.4, 2.6]} texture={0} />
+        <Keycap position={[-1.4, 0, 2.3]} texture={1} />
+        <Keycap position={[-1.8, 1, 1.5]} texture={2} />
+        <Keycap position={[0, 1, 1]} texture={3} />
+        <Keycap position={[0.7, 0.9, 1.4]} texture={4} />
+        <Keycap position={[1.3, -0.3, 2.3]} texture={5} />
+        <Keycap position={[0, 1, 2]} texture={6} />
+        <Keycap position={[-0.7, 0.6, 2]} texture={7} />
+        <Keycap position={[-0.77, 0.1, 2.8]} texture={8} />
+        <Keycap position={[2, 0, 1]} texture={7} />
       </group>
 
       <ambientLight intensity={0.2} />
