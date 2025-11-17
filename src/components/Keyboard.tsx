@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import React, { useRef, forwardRef, useImperativeHandle } from "react";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, useTexture } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
@@ -308,9 +308,59 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
       container: containerRef,
     }));
 
+    const keycapTextures = useTexture("/goodwell_uv.png");
+    keycapTextures.flipY = false;
+    keycapTextures.colorSpace = THREE.SRGBColorSpace;
+
+    const knurlTexture = useTexture("/knurl.jpg");
+    knurlTexture.flipY = false;
+
+    knurlTexture.repeat.set(6, 6);
+    knurlTexture.wrapS = THREE.RepeatWrapping;
+    knurlTexture.wrapT = THREE.RepeatWrapping;
+
+    const screenTexture = useTexture("/screen_uv.png");
+    screenTexture.flipY = false;
+
+    screenTexture.repeat.set(-1, -1);
+    screenTexture.offset.set(1, 1);
+
     const keycapMat = new THREE.MeshStandardMaterial({
-      color: "#ff0000",
+      map: keycapTextures,
       roughness: 0.7,
+    });
+
+    const knobMat = new THREE.MeshStandardMaterial({
+      color: "#E24818",
+      roughness: 0.4,
+      metalness: 1,
+      bumpMap: knurlTexture,
+      bumpScale: 0.8,
+    });
+
+    const feetMat = new THREE.MeshStandardMaterial({
+      color: "#333333",
+      roughness: 0.4,
+    });
+
+    const plateMat = new THREE.MeshStandardMaterial({
+      color: "#cccccc",
+      roughness: 0.4,
+    });
+
+    const bottomCaseMat = new THREE.MeshStandardMaterial({
+      color: "#cccccc",
+      roughness: 0.4,
+    });
+
+    const topCaseMat = new THREE.MeshStandardMaterial({
+      color: "#cccccc",
+      roughness: 0.4,
+    });
+
+    const screenMat = new THREE.MeshStandardMaterial({
+      map: screenTexture,
+      roughness: 0.4,
     });
 
     const switchMat = new THREE.MeshStandardMaterial({
@@ -319,7 +369,7 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
     });
 
     const switchStemMat = new THREE.MeshStandardMaterial({
-      color: "#cccccc",
+      color: "#bb2222",
       roughness: 0.4,
     });
 
@@ -337,7 +387,7 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
             castShadow
             receiveShadow
             geometry={nodes.Plate.geometry}
-            material={keycapMat}
+            material={plateMat}
             position={[-0.022, -0.006, -0.057]}
           />
           <mesh
@@ -345,14 +395,14 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
             castShadow
             receiveShadow
             geometry={nodes.Knob.geometry}
-            material={keycapMat}
+            material={knobMat}
             position={[0.121, 0.004, -0.106]}
           />
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.PCB.geometry}
-            material={keycapMat}
+            material={plateMat}
             position={[-0.022, -0.009, -0.057]}
           />
 
@@ -621,13 +671,13 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
               castShadow
               receiveShadow
               geometry={nodes.Cube005.geometry}
-              material={keycapMat}
+              material={bottomCaseMat}
             />
             <mesh
               castShadow
               receiveShadow
               geometry={nodes.Cube005_1.geometry}
-              material={keycapMat}
+              material={feetMat}
             />
           </group>
           <mesh
@@ -635,7 +685,7 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
             castShadow
             receiveShadow
             geometry={nodes.Top_Case.geometry}
-            material={keycapMat}
+            material={topCaseMat}
             position={[-0.022, -0.014, -0.057]}
           />
           <mesh
@@ -651,7 +701,7 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
             castShadow
             receiveShadow
             geometry={nodes.Screen.geometry}
-            material={keycapMat}
+            material={screenMat}
             position={[0.092, 0.001, -0.106]}
             scale={-1}
           />
