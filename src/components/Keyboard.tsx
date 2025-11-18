@@ -164,7 +164,7 @@ interface KeyboardProps extends React.ComponentProps<"group"> {
 }
 
 export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
-  ({ ...props }, ref) => {
+  ({ keycapMaterial, knobColor, ...props }, ref) => {
     const { nodes, materials } = useGLTF(
       "/keyboard.gltf",
     ) as unknown as GLTFResult;
@@ -308,54 +308,56 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
       container: containerRef,
     }));
 
-    const keycapTextures = useTexture("/goodwell_uv.png");
-    keycapTextures.flipY = false;
-    keycapTextures.colorSpace = THREE.SRGBColorSpace;
+    const keycapTexture = useTexture("/goodwell_uv.png");
+    keycapTexture.flipY = false;
+    keycapTexture.colorSpace = THREE.SRGBColorSpace;
 
-    const knurlTexture = useTexture("/knurl.jpg");
+    const knurlTexture = useTexture("/Knurl.jpg");
     knurlTexture.flipY = false;
 
     knurlTexture.repeat.set(6, 6);
     knurlTexture.wrapS = THREE.RepeatWrapping;
     knurlTexture.wrapT = THREE.RepeatWrapping;
 
-    const screenTexture = useTexture("/screen_uv.png");
+    const screenTexture = useTexture("screen_uv.png");
     screenTexture.flipY = false;
 
     screenTexture.repeat.set(-1, -1);
     screenTexture.offset.set(1, 1);
 
-    const keycapMat = new THREE.MeshStandardMaterial({
-      map: keycapTextures,
+    const defaultKeycapMat = new THREE.MeshStandardMaterial({
       roughness: 0.7,
+      map: keycapTexture,
     });
 
+    const keycapMat = keycapMaterial || defaultKeycapMat;
+
     const knobMat = new THREE.MeshStandardMaterial({
-      color: "#E24818",
+      color: knobColor || "#E24818",
       roughness: 0.4,
       metalness: 1,
       bumpMap: knurlTexture,
       bumpScale: 0.8,
     });
 
-    const feetMat = new THREE.MeshStandardMaterial({
-      color: "#333333",
-      roughness: 0.4,
-    });
-
     const plateMat = new THREE.MeshStandardMaterial({
-      color: "#cccccc",
+      color: "#888888",
       roughness: 0.4,
     });
 
     const bottomCaseMat = new THREE.MeshStandardMaterial({
-      color: "#cccccc",
+      color: "#1E548A",
       roughness: 0.4,
     });
 
     const topCaseMat = new THREE.MeshStandardMaterial({
-      color: "#cccccc",
-      roughness: 0.4,
+      color: "#dddddd",
+      roughness: 0.7,
+    });
+
+    const feetMat = new THREE.MeshStandardMaterial({
+      color: "#333333",
+      roughness: 0.6,
     });
 
     const screenMat = new THREE.MeshStandardMaterial({
@@ -374,7 +376,7 @@ export const Keyboard = forwardRef<KeyboardRefs, KeyboardProps>(
     });
 
     const switchContactsMat = new THREE.MeshStandardMaterial({
-      color: "#cccccc",
+      color: "#FFCF5F",
       roughness: 0.1,
       metalness: 1,
     });
