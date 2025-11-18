@@ -3,5 +3,7 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  bentobox: dynamic(() => import("./Bentobox")),
+  color_changer: dynamic(() => import("./ColorChanger")),
   hero: dynamic(() => import("./Hero")),
 };
