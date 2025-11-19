@@ -1,11 +1,13 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { Content } from "@prismicio/client";
 import { PrismicText, SliceComponentProps } from "@prismicio/react";
 import { Bounded } from "@/components/Bounded";
 import clsx from "clsx";
 import Image from "next/image";
 import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
+import { Canvas } from "@react-three/fiber";
+import { Scene } from "./Scene";
 
 export const KEYCAP_TEXTURES = [
   {
@@ -64,6 +66,10 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
     setSelectedTextureId(texture.id);
   }
 
+  const handleAnimationComplete = useCallback(() => {
+    setIsAnimating(false);
+  }, []);
+
   return (
     <section
       data-slice-type={slice.slice_type}
@@ -72,6 +78,15 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
     >
       {/* SVG background */}
       {/* Canvas */}
+      <Canvas
+        camera={{ position: [0, 0.7, 0.7], fov: 45, zoom: 1.5 }}
+        className="-mb-[10vh] grow"
+      >
+        <Scene
+          selectedTextureId={selectedTextureId}
+          onAnimationComplete={handleAnimationComplete}
+        />
+      </Canvas>
       <Bounded
         className="relative shrink-0"
         innerClassName="gap-6 lg:gap-8 flex flex-col lg:flex-row"
