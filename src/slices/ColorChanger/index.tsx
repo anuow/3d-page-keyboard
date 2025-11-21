@@ -5,7 +5,6 @@ import { PrismicText, SliceComponentProps } from "@prismicio/react";
 import { Bounded } from "@/components/Bounded";
 import clsx from "clsx";
 import Image from "next/image";
-import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
 import { Canvas } from "@react-three/fiber";
 import { Scene } from "./Scene";
 
@@ -63,12 +62,10 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
   function handleTextureSelect(texture: KeycapTexture) {
     if (texture.id === selectedTextureId || isAnimating) return;
 
+    setIsAnimating(true);
     setSelectedTextureId(texture.id);
     setBackgroundText(
-      Array.from(
-        { length: 10 },
-        () => KEYCAP_TEXTURES.find((t) => t.id === texture.id)?.name || "",
-      ).join(" "),
+      KEYCAP_TEXTURES.find((t) => t.id == texture.id)?.name || "",
     );
   }
 
@@ -87,9 +84,18 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
         className="pointer-events-none absolute top-0 left-0 h-auto w-full mix-blend-overlay"
         viewBox="0 0 75 100"
       >
-        <text>
+        <text
+          fontSize={7}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          x="50%"
+          y="50%"
+          className="font-black-slanted fill-white/20 uppercase group-hover:fill-white/30 motion-safe:transition-all motion-safe:duration-700"
+        >
           {Array.from({ length: 20 }, (_, i) => (
-            <tspan>{backgroundText}</tspan>
+            <tspan key={i} x={`${(i + 1) * 10}`} dy={i === 0 ? -50 : 6}>
+              {Array.from({ length: 10 }, () => backgroundText).join(" ")}
+            </tspan>
           ))}
         </text>
       </svg>
@@ -121,12 +127,13 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
             <li key={texture.id}>
               <button
                 onClick={() => handleTextureSelect(texture)}
+                disabled={isAnimating}
                 className={clsx(
                   "flex aspect-square flex-col items-center justify-center rounded-lg border-2 p-4 hover:scale-105 motion-safe:transition-all motion-safe:duration-300",
                   selectedTextureId === texture.id
                     ? "border-[#81BFED] bg-[#81BFED]/20"
                     : "cursor-pointer border-gray-300 hover:border-gray-500",
-                  isAnimating && "pointer-events-none opacity-50",
+                  isAnimating && "cursor-not-allowed opacity-50",
                 )}
               >
                 <div className="mb-3 overflow-hidden rounded border-2 border-black bg-gray-100">
