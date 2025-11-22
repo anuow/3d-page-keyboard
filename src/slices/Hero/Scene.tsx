@@ -1,32 +1,76 @@
 "use client";
 import { Keyboard } from "@/components/Keyboard";
 import { Keycap } from "@/components/Keycap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { Environment, PerspectiveCamera } from "@react-three/drei";
-import { useControls } from "leva";
+import { use, useRef } from "react";
+import * as THREE from "three";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function Scene() {
-  const { positionX, positionY, positionZ, rotationX, rotationY, rotationZ } =
-    useControls({
-      positionX: 0,
-      positionY: -0.5,
-      positionZ: 3,
-      rotationX: Math.PI / 2,
-      rotationY: 0,
-      rotationZ: 0,
-    });
+  const keyboardGroupRef = useRef<THREE.Group>(null);
 
   const scalingFactor = window.innerWidth <= 500 ? 0.5 : 1;
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      if (!keyboardGroupRef.current) return;
+
+      const keyboard = keyboardGroupRef.current;
+
+      const tl = gsap.timeline({
+        ease: "power2.inOut",
+      });
+
+      tl.to(keyboard.position, {
+        x: 0,
+        y: -0.5,
+        z: 0.5,
+        duration: 2,
+      })
+        .to(
+          keyboard.rotation,
+          {
+            x: 1.4,
+            y: 0,
+            z: 0,
+            duration: 1.8,
+          },
+          "<",
+        )
+        .to(keyboard.position, {
+          x: 0.2,
+          y: -0.5,
+          z: 1.9,
+          duration: 2,
+          delay: 0.5,
+        })
+        .to(
+          keyboard.rotation,
+          {
+            x: 1.6,
+            y: 0.4,
+            z: 0,
+            duration: 2,
+          },
+          "<",
+        );
+    });
+  });
 
   return (
     <group>
       <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
 
       <group scale={scalingFactor}>
-        <Keyboard
-          scale={9}
-          position={[0.2, -0.5, 1.9]}
-          rotation={[1.6, 0.4, 0]}
-        />
+        <group ref={keyboardGroupRef}>
+          <Keyboard scale={9} />
+        </group>
 
         <group>
           <Keycap position={[0, -0.4, 2.6]} texture={0} />
