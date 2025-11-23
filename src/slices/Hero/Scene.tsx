@@ -4,14 +4,39 @@ import { Keycap } from "@/components/Keycap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Environment, PerspectiveCamera } from "@react-three/drei";
-import { use, useRef } from "react";
+import {
+  CameraControls,
+  Environment,
+  PerspectiveCamera,
+} from "@react-three/drei";
+import { use, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { useThree } from "@react-three/fiber";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
+function CameraControler() {
+  const { camera, size } = useThree();
+  const mouseRef = useRef({ x: 0.5, y: 0.5 });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      mouseRef.current.x = event.clientX / size.width;
+      mouseRef.current.y = event.clientY / size.height;
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
+    }
+  }, [size]);
+
+  return null;
+}
+
 export function Scene() {
   const keyboardGroupRef = useRef<THREE.Group>(null);
+  const [lightIntensityScaler, setLightIntensityScaler] = useState(0);
 
   const scalingFactor = window.innerWidth <= 500 ? 0.5 : 1;
 
@@ -22,6 +47,19 @@ export function Scene() {
       if (!keyboardGroupRef.current) return;
 
       const keyboard = keyboardGroupRef.current;
+
+      gsap.to(
+        { lightIntensityScaler: 0 },
+        {
+          lightIntensityScaler: 1,
+          duration: 3.5,
+          delay: 0.5,
+          ease: "power2.inOut",
+          onUpdate: function () {
+            setLightIntensityScaler(this.targets()[0].lightIntensityScaler);
+          },
+        },
+      );
 
       const tl = gsap.timeline({
         ease: "power2.inOut",
@@ -65,6 +103,7 @@ export function Scene() {
 
   return (
     <group>
+      <CameraControler />
       <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
 
       <group scale={scalingFactor}>
@@ -89,12 +128,12 @@ export function Scene() {
 
       <Environment
         files={["/hdr/blue-studio.hdr"]}
-        environmentIntensity={0.1}
+        environmentIntensity={0.1 * lightIntensityScaler}
       />
 
       <spotLight
         position={[-2, 1.5, 3]}
-        intensity={30}
+        intensity={30 * lightIntensityScaler}
         castShadow
         shadow-bias={-0.0002}
         shadow-normalBias={0.002}
