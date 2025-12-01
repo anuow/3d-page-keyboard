@@ -1,5 +1,5 @@
 "use client";
-import { FC, Suspense } from "react";
+import { FC, Suspense, useEffect, useState } from "react";
 import { Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { Bounded } from "@/components/Bounded";
@@ -11,13 +11,33 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Loader } from "@/components/Loader";
 import { useProgress } from "@react-three/drei";
+import clsx from "clsx";
 
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
 
 function LoaderWrapper() {
   const { active } = useProgress();
+  const [isLoading, setIsLoading] = useState(true);
 
-  return active ? <Loader /> : null;
+  useEffect(() => {
+    if (active) {
+      setIsLoading(true);
+    } else {
+      const timer = setTimeout(() => setIsLoading(false), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [active]);
+
+  return (
+    <div
+      className={clsx(
+        "motion-safe:transition-opacity motion-safe:duration-700",
+        isLoading ? "opacity-100" : "pointer-events-none opacity-0",
+      )}
+    >
+      <Loader />
+    </div>
+  );
 }
 
 /**
