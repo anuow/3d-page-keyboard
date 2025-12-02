@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Product Page Site
+A fully interactive 3D product experience built with Next.js, React Three Fiber, GSAP, and Prismic CMS.
+Users can explore a mechanical keyboard in 3D, press keycaps with realistic switch sounds, view product details, and proceed through a checkout flow.
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Features
+1. 3D Interactive Keyboard
+    - Built using Three.js + React Three Fiber
+    - Realistic mechanical switch animations
+    - Key press + release behavior with pointer events
+    - Dynamic audio feedback for every switch:
+        * Red switches
+        * Brown switches
+        * Blue switches
+        * Black switches
+Smooth Scroll Animations
+GSAP + ScrollTrigger timeline animations
+Parallax hero section
+Sequential animations across slices and sections
+CMS-Driven Content
+Fully integrated with Prismic
+Homepage, product pages, specifications, and slices managed via the Prismic dashboard
+Custom slice types located in /customtypes
+Modern UI / UX
+Built with TailwindCSS
+Responsive layout
+Glass, chrome, and metal-inspired UI styles
+Auto-animated buttons using motion-safe transitions
+Checkout Flow
+Simple fake checkout process using:
+/src/checkout.ts
+Animated "press" button feedback
+/success page for order confirmation
+Switch Sound System
+High-quality key switch sounds located in:
+/public/sounds/
+Triggered dynamically on pointer events.
+Tech Stack
+Frontend
+Next.js 14+ (App Router)
+React
+TypeScript
+TailwindCSS
+3D / Animation
+React Three Fiber
+@react-three/drei
+GSAP + ScrollTrigger
+Three.js
+CMS
+Prismic.io
+Custom slices (Homepage, Product, Switch)
+Other
+Audio-based interactions
+Smooth hover/press animations
+Custom global styles (globals.css)
