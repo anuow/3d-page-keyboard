@@ -31,9 +31,9 @@ Users can explore a mechanical keyboard in 3D, press keycaps with realistic swit
 
 ### Checkout Flow
 * Simple fake checkout process using:
-    */src/checkout.ts*
+    `/src/checkout.ts`
 * Animated "press" button feedback
-* */success* page for order confirmation
+* `/success* page` for order confirmation
 Switch Sound System
 High-quality key switch sounds located in:
 /public/sounds/
