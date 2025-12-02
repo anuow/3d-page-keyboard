@@ -30,29 +30,44 @@ Users can explore a mechanical keyboard in 3D, press keycaps with realistic swit
 * Auto-animated buttons using motion-safe transitions
 
 ### Checkout Flow
-* Simple fake checkout process using:
-    `/src/checkout.ts`
+* Simple fake checkout process using: `/src/checkout.ts`
 * Animated "press" button feedback
-* `/success* page` for order confirmation
-Switch Sound System
-High-quality key switch sounds located in:
-/public/sounds/
-Triggered dynamically on pointer events.
-Tech Stack
-Frontend
-Next.js 14+ (App Router)
-React
-TypeScript
-TailwindCSS
-3D / Animation
-React Three Fiber
-@react-three/drei
-GSAP + ScrollTrigger
-Three.js
-CMS
-Prismic.io
-Custom slices (Homepage, Product, Switch)
-Other
-Audio-based interactions
-Smooth hover/press animations
-Custom global styles (globals.css)
+* `/success` page for order confirmation
+
+### Switch Sound System
+* High-quality key switch sounds located in: `/public/sounds/`
+* Triggered dynamically on pointer events.
+
+## Tech Stack
+
+### Frontend
+* Next.js 14+ (App Router)
+* React
+* TypeScript
+* TailwindCSS
+
+### 3D / Animation
+* React Three Fiber
+* @react-three/drei
+* GSAP + ScrollTrigger
+* Three.js
+
+### CMS
+* Prismic.io
+* Custom slices (Homepage, Product, Switch)
+
+### Other
+* Audio-based interactions
+* Smooth hover/press animations
+* Custom global styles (globals.css)
+
+## Installation
+```bash
+npm install
+npm run dev
+```
+## Runs the app at:
+```arduino
+http://localhost:3000
+
+```
