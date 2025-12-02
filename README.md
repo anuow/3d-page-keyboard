@@ -2,6 +2,8 @@
 A fully interactive 3D product experience built with Next.js, React Three Fiber, GSAP, and Prismic CMS.
 Users can explore a mechanical keyboard in 3D, press keycaps with realistic switch sounds, view product details, and proceed through a checkout flow.
 
+![keyboard](k.jpg)
+
 ## Features
 ### 3D Interactive Keyboard
 * Built using Three.js + React Three Fiber
