@@ -77,6 +77,6 @@ http://localhost:3000
 ## Environment Variables
 Create a .env file:
 ```ini
-PRISMIC_ENDPOINT=your-endpoint
-PRISMIC_TOKEN=your-token
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:your-publishable-key
+STRIPE_SECRET_KEY=your-secret-key
 ```
