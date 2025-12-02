@@ -66,8 +66,15 @@ Users can explore a mechanical keyboard in 3D, press keycaps with realistic swit
 npm install
 npm run dev
 ```
+
 ## Runs the app at:
 ```arduino
 http://localhost:3000
+```
 
+## Environment Variables
+Create a .env file:
+```ini
+PRISMIC_ENDPOINT=your-endpoint
+PRISMIC_TOKEN=your-token
 ```
