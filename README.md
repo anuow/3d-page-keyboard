@@ -77,6 +77,6 @@ http://localhost:3000
 ## Environment Variables
 Create a .env file:
 ```ini
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:your-publishable-key
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your-publishable-key
 STRIPE_SECRET_KEY=your-secret-key
 ```
